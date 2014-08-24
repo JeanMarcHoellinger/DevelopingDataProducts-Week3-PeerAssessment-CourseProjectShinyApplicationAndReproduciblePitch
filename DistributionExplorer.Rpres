@@ -1,0 +1,77 @@
+Distribution Explorer
+========================================================
+author: Jean-Marc Hoellinger
+date: 2014-08-24
+transition: rotate
+
+How to cope with distributions ?
+========================================================
+
+I never remember the shape and characteristics of main used distributions.
+
+So I had the idea to build an interactive Shiny application which gives me some quick clues.
+
+The following slides show probability density function and help code for random deviates generation in R for these distributions :
+
+* Normal
+* Uniform (continuous)
+* Log-normal
+* Exponential
+
+Normal and uniform (continuous)
+========================================================
+**Normal distribution**
+<center>$f(x;\mu,\sigma)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$</center>
+```{r eval=FALSE}
+rnorm(n, mean = 0, sd = 1)
+```
+**Uniform distribution (continuous)**
+<center>\[ f(x) = \left\{ 
+  \begin{array}{l l}
+     \frac{1}{b-a} & \quad \text{for }a \leq x \leq b,\\
+     0 & \quad \text{for }x \lt a\text{ or }x \gt b
+   \end{array} \right.\]</center>
+```{r eval=FALSE}
+runif(n, min = 0, max = 1)
+```
+
+Log-normal and exponential
+========================================================
+transition: linear
+**Log-normal distribution**
+<center>$f_{X}(x;\mu,\sigma)=\frac{1}{x\sigma\sqrt{2\pi}}e^{-\frac{(ln_{x}-\mu)^2}{2\sigma^2}}, x > 0$</center>
+```{r eval=FALSE}
+rlnorm(n, meanlog = 0, sdlog = 1)
+```
+**Exponential distribution**
+<center>\[ f(x;\lambda) = \left\{ 
+  \begin{array}{l l}
+     \lambda e^{-\lambda x} & \quad x \geq 0,\\
+     0 & \quad x < 0.
+   \end{array} \right.\]</center>
+```{r eval=FALSE}
+rexp(n, rate = 1)
+```
+
+Want to learn more ?
+========================================================
+transition: rotate
+Please visit my Shiny application for further interactive details :
+http://jeanmarchoellinger.shinyapps.io/Distribution_Explorer
+
+A quick preview of shapes :
+<center>
+```{r echo=FALSE, fig.width=6, fig.height=6}
+set.seed(123)
+n <- 500
+rnorm <- rnorm(n)
+runif <- runif(n)
+rlnorm <- rlnorm(n)
+rexp <- rexp(n)
+par(mfrow=c(2,2))
+hist(rnorm, main=paste0("rnorm(",n,")"))
+hist(runif, main=paste0("runif(",n,")"))
+hist(rlnorm, main=paste0("rlnorm(",n,")"))
+hist(rexp, main=paste0("rexp(",n,")"))
+```
+</center>
